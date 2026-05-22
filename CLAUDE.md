@@ -30,3 +30,33 @@ The release cycle: when `csl-orig` source is corrected and the pipeline reruns, 
 ## Dependencies
 
 This repo has no scripts — it is a distribution channel only. The generation pipeline lives in `csl-pywork`.
+
+## Key files and directories
+
+| Path | Purpose |
+|---|---|
+| `README.md` | User-facing overview and download instructions |
+| `CLAUDE.md` | Guidance for Claude Code when working in this repo |
+| `LICENSE` | MIT licence |
+| `ARCHITECTURE.md` | Component diagram and data-flow description |
+| `DEPLOY.md` | How to publish a new release |
+| `CITATION.cff` | Machine-readable citation metadata |
+| `CONTRIBUTING.md` | Contribution guide and issue label taxonomy |
+| `CODE_OF_CONDUCT.md` | Community standards |
+| `.github/ISSUE_TEMPLATE/` | Bug, feature, and question issue templates |
+
+SQLite files are stored as **GitHub Releases assets**, not in the repository tree.
+
+## Architecture notes
+
+See [`ARCHITECTURE.md`](ARCHITECTURE.md) for the full component diagram.
+
+Key invariants:
+- This repo has **no build scripts** — it is a distribution channel only.
+- SQLite files are published as GitHub Releases assets, never committed to the tree.
+- Downstream consumers (csl-app, researchers) download from the Releases page.
+
+## Deployment
+
+See [`DEPLOY.md`](DEPLOY.md). The deployment trigger is: a maintainer manually creates
+a new GitHub Release after csl-pywork regenerates the SQLite files following csl-orig updates.

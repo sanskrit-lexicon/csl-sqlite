@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+type: software
+title: "csl-sqlite"
+message: "If you use this software in research, please cite it."
+license: MIT
+repository-code: https://github.com/sanskrit-lexicon/csl-sqlite
+date-released: "2020-01-01"
+version: "1.0.0"
+doi: "10.5281/zenodo.XXXXXXX"
+keywords:
+  - sanskrit
+  - cdsl
+  - sqlite
+  - dictionary
+authors:
+  - name: "Cologne Digital Sanskrit Lexicon project contributors"
+    website: https://www.sanskrit-lexicon.uni-koeln.de/
