@@ -7,6 +7,17 @@ Do not do `git pull` on this repository. It will unnecessarily fetch too much da
 
 If you are interested in the latest data, you can visit https://github.com/sanskrit-lexicon/csl-sqlite/releases/latest and download the latest data.
 
+Each release publishes ~50 zip files: one per dictionary (`mw.zip`, `pwg.zip`, etc.),
+plus literary-source link files (`<short>_lslinks.sqlite.zip`) and global auxiliary
+databases (`hwnorm1c.sqlite.zip`, `keydoc_glob1.sqlite.zip`).
+
+```bash
+# Quick download (e.g. Monier-Williams)
+gh release download --repo sanskrit-lexicon/csl-sqlite --pattern "mw.zip"
+unzip mw.zip                                          # -> mw.sqlite
+sqlite3 mw.sqlite "SELECT COUNT(*) FROM mw;"          # -> ~286,561
+```
+
 ## Architecture overview
 
 csl-sqlite is a **distribution channel** in the CDSL pipeline:

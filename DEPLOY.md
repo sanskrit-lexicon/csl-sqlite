@@ -1,81 +1,106 @@
 # Deployment — csl-sqlite
 
-## Overview
+## What "deploy" means here
 
-csl-sqlite is a **distribution-only** repository. There are no scripts to run here.
-Deployment means uploading newly built SQLite files as a GitHub Release asset.
+This repo holds **no build scripts**. "Deploying" csl-sqlite means creating a new
+GitHub Release and uploading freshly built per-dictionary SQLite zip files as
+release assets. The build itself runs in
+[csl-pywork](https://github.com/sanskrit-lexicon/csl-pywork) — see its
+`v02/makotemplates/pywork/sqlite/sqlite.py`.
 
-The SQLite files are generated upstream by `csl-pywork` from source text in `csl-orig`.
+In 2026, releases happen roughly weekly (see the
+[Releases page](https://github.com/sanskrit-lexicon/csl-sqlite/releases) for the
+real cadence). Each release replaces the previous; older releases stay available
+and immutable.
 
 ## Prerequisites
 
-| Tool | Version | Install |
-|---|---|---|
-| GitHub CLI (`gh`) | ≥ 2.x | https://cli.github.com/ |
-| `csl-pywork` pipeline | current | see that repo's DEPLOY.md |
+| Tool | Notes |
+|---|---|
+| `gh` CLI ≥ 2.x | https://cli.github.com/ — used to create the release and upload assets |
+| Built `.sqlite` files | Produced by csl-pywork on the build host |
+| GitHub auth | `gh auth login` once; or `GITHUB_TOKEN` env var with `repo` scope |
 
-## Environment variables
+## Release-tag convention
 
-| Variable | Required | Description |
-|---|---|---|
-| `GITHUB_TOKEN` | yes (for `gh`) | Token with `repo` scope for creating releases |
+Existing tags use a UTC timestamp: `YYYY-MM-DD-HH-MM-SS`. Example:
+`2026-05-17-07-42-11`. Stick to this pattern so the Releases list sorts cleanly.
 
-## Routine deployment (after csl-orig update)
+## Routine procedure
 
 ```bash
-# Step 1 — run the build pipeline in csl-pywork to generate SQLite files
-# (see csl-pywork's DEPLOY.md for the exact build command)
-<run csl-pywork build>
+# 1. Build SQLite files in csl-pywork (per its own runbook). Produces:
+#       <short>.sqlite           -- one per dictionary (~42 dicts)
+#       <short>_lslinks.sqlite   -- for dicts with literary-source links
+#       hwnorm1c.sqlite, keydoc_glob1.sqlite  -- auxiliary global DBs
+#    Then zip each .sqlite into <name>.zip.
 
-# Step 2 — validate output
-# [to be filled by reviewer — describe any validation checks]
-<validation step>
+# 2. Pick a tag:
+TAG=$(date -u +"%Y-%m-%d-%H-%M-%S")
 
-# Step 3 — create a new GitHub Release and upload SQLite files
-gh release create <tag> --repo sanskrit-lexicon/csl-sqlite \
-  --title "Release <tag>" \
-  --notes "Updated SQLite files from csl-orig <commit>." \
-  *.sqlite
+# 3. Create the release (in the directory holding the .zip files):
+gh release create "$TAG" \
+   --repo sanskrit-lexicon/csl-sqlite \
+   --title "Release $TAG" \
+   --notes "Updated SQLite files." \
+   *.zip
 ```
+
+`gh release create` uploads each `.zip` in the current directory as a release asset
+in one call. For a typical release this is ~50 assets totalling ~250 MB.
+
+## Verifying a release
+
+After the upload completes:
+
+```bash
+# Confirm asset count and sizes match expectations
+gh release view "$TAG" --repo sanskrit-lexicon/csl-sqlite \
+  --json assets --jq '.assets | length, ([.[].size] | add)'
+
+# Spot-check a SQLite file
+gh release download "$TAG" --repo sanskrit-lexicon/csl-sqlite --pattern "mw.zip"
+unzip -p mw.zip mw.sqlite | sqlite3 :memory: "SELECT COUNT(*) FROM mw;"
+```
+
+The MW entry count should be in the same ballpark as the previous release
+(currently ~286,561 — see [MWS DATA_DICTIONARY.md](https://github.com/sanskrit-lexicon/MWS/blob/docs-pass/DATA_DICTIONARY.md)).
 
 ## Rollback
 
-To revert to a previous release, point downstream consumers at the previous release tag URL:
+GitHub Releases are immutable once published, so "rollback" means asking
+downstream consumers to pin to the previous tag:
 
 ```bash
-# Download a specific prior release
-gh release download <previous-tag> --repo sanskrit-lexicon/csl-sqlite --pattern "*.sqlite"
+gh release download <previous-tag> --repo sanskrit-lexicon/csl-sqlite --pattern "*.zip"
 ```
 
-GitHub Releases are immutable once published; the previous release remains available.
+To remove a bad release entirely:
 
-## Health check
-
-After publishing a release, verify:
-1. The new release appears at https://github.com/sanskrit-lexicon/csl-sqlite/releases/latest
-2. Asset file sizes are non-zero and consistent with the previous release.
-3. [to be filled by reviewer: any automated smoke-test against the SQLite schema]
+```bash
+gh release delete "$TAG" --repo sanskrit-lexicon/csl-sqlite --cleanup-tag
+```
 
 ## Troubleshooting
 
 | Symptom | Likely cause | Fix |
 |---|---|---|
-| `gh release create` fails with auth error | GITHUB_TOKEN missing or insufficient | Re-authenticate: `gh auth login` |
-| Release assets are 0 bytes | Build pipeline error upstream | Re-run csl-pywork build; check its logs |
-| `csl-app` not picking up new data | csl-app has its own update schedule | Trigger csl-app's deployment separately |
-
-## Deployment frequency
-
-Triggered manually after `csl-orig` merges a correction batch.
-Typical cadence: weekly during active correction periods, monthly otherwise.
+| `gh release create` fails with HTTP 401 | Missing or insufficient auth | `gh auth login` (needs `repo` scope) |
+| Asset uploads stall or 0-byte | Slow upstream / network drop | Retry: `gh release upload $TAG <file>.zip --clobber` |
+| `csl-app` still serving old data | csl-app has its own update job | Trigger csl-app's deployment separately |
+| Local clone bloats unexpectedly | Someone ran `git pull` | The repo tree itself stays small; Releases are not in the tree |
 
 ## CI / automation
 
-No GitHub Actions workflows are currently configured in this repository.
-Deployment is performed manually by a project maintainer.
+No GitHub Actions workflows are committed in this repository as of 2026-05-22. The
+weekly release cadence visible in the Releases page is driven by an external
+scheduled job (lives outside this repo). Adding a workflow here that ties release
+creation to csl-pywork builds would close that gap.
 
-## Downstream
+## Downstream consumers
 
-Once published, SQLite files are consumed by:
-- **csl-app** — downloads them to serve the web API
-- **Researchers** — download directly from the GitHub Releases page
+| Consumer | How they pick up new data |
+|---|---|
+| [csl-app](https://github.com/sanskrit-lexicon/csl-app) | Pulls the latest SQLite files from the most recent Release |
+| Researchers | Download specific zips from the Releases UI |
+| Local dev | `gh release download --pattern "<short>.zip"` |
