@@ -1,3 +1,5 @@
+_Created: 15-05-2026 · Last updated: 05-09-2026_
+
 # CLAUDE.md
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
@@ -30,3 +32,5 @@ The release cycle: when `csl-orig` source is corrected and the pipeline reruns, 
 ## Dependencies
 
 This repo has no scripts — it is a distribution channel only. The generation pipeline lives in `csl-pywork`.
+
+_Dr. Mārcis Gasūns_
