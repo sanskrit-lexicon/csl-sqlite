@@ -1,4 +1,6 @@
 # csl-sqlite
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21319331.svg)](https://doi.org/10.5281/zenodo.21319331)
+
 
 _Created: 14-06-2026 · Last updated: 11-07-2026_
 
