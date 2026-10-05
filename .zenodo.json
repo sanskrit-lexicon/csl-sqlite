@@ -1,0 +1,16 @@
+{
+  "title": "sanskrit-lexicon/csl-sqlite: Release 2026-08-09-05-51-03",
+  "creators": [
+    {
+      "name": "Gasūns, Mārcis"
+    },
+    {
+      "name": "Patel, Dhaval"
+    }
+  ],
+  "description": "Compiled SQLite databases of the Cologne Digital Sanskrit Dictionaries (CDSL).",
+  "access_right": "open",
+  "license": "gpl-3.0",
+  "upload_type": "software",
+  "doi": "10.5281/zenodo.21319331"
+}

@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use the Cologne Digital Sanskrit Dictionaries data from csl-sqlite, please cite it using this DOI."
+title: "sanskrit-lexicon/csl-sqlite: Release 2026-08-09-05-51-03"
+authors:
+  - family-names: Gasūns
+    given-names: Mārcis
+  - family-names: Patel
+    given-names: Dhaval
+doi: 10.5281/zenodo.21319331
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.21857997
+    description: The specific archived release of this record.
+version: 2026-08-09-05-51-03
+date-released: "2026-08-09"
+license: GPL-3.0
+repository-code: "https://github.com/sanskrit-lexicon/csl-sqlite"
