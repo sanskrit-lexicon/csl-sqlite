@@ -32,6 +32,9 @@ from datetime import date
 SCHEMA_VERSION = 1
 # <code>.zip only: excludes <code>_lslinks.sqlite.zip, hwnorm1c.sqlite.zip, ...
 ZIP_RE = re.compile(r'^([a-z0-9]+)\.zip$')
+# A zip holding only empty.txt (no <code>.sqlite) is ~170 bytes; real ones are
+# tens of KB at least. Anything smaller is a failed build, not a dictionary.
+MIN_ZIP_BYTES = 1024
 DEFAULTS = {
     'group': None,
     'hasAccent': False,
@@ -69,8 +72,12 @@ def build(indexdirs, overlay, zips_dir):
         m = ZIP_RE.match(fn)
         if m:
             zips[m.group(1)] = os.path.getsize(os.path.join(zips_dir, fn))
+    broken = sorted(c for c, n in zips.items() if n < MIN_ZIP_BYTES)
+    zips = {c: n for c, n in zips.items() if n >= MIN_ZIP_BYTES}
 
-    entries, warnings = [], []
+    entries = []
+    warnings = [f'{c}: zip is only a few bytes (failed build?) -- omitted'
+                for c in broken]
     for code, size in sorted(zips.items()):
         info = meta.get(code)
         ov = overlay.get(code, {})
@@ -86,7 +93,7 @@ def build(indexdirs, overlay, zips_dir):
             e[k] = ov.get(k, dv)
         entries.append(e)
 
-    for code in sorted(set(meta) - set(zips)):
+    for code in sorted(set(meta) - set(zips) - set(broken)):
         warnings.append(f'{code}: in indexdirs.xml but no zip (omitted)')
     return {'schemaVersion': SCHEMA_VERSION,
             'generated': date.today().isoformat(),
