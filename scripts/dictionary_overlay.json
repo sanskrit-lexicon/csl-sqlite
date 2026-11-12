@@ -1,0 +1,247 @@
+{
+ "_comment": "Hand-maintained fields not present in csl-homepage/indexdirs.xml. Only listed codes get non-default values. Keys are lowercase dictionary codes.",
+ "dictionaries": {
+  "abch": {
+   "group": "Sanskrit-Sanskrit",
+   "hasAccent": false,
+   "hasDeva": true,
+   "renderProfile": "abch"
+  },
+  "acc": {
+   "group": "Specialized",
+   "hasAccent": false,
+   "hasDeva": false
+  },
+  "acph": {
+   "group": "Sanskrit-Sanskrit",
+   "hasAccent": false,
+   "hasDeva": true,
+   "renderProfile": "abch"
+  },
+  "acsj": {
+   "group": "Sanskrit-Sanskrit",
+   "hasAccent": false,
+   "hasDeva": true,
+   "renderProfile": "abch"
+  },
+  "ae": {
+   "group": "English-Sanskrit",
+   "hasAccent": false,
+   "hasDeva": false,
+   "englishHeadwords": true,
+   "status": "deprecated"
+  },
+  "ap": {
+   "group": "Sanskrit-English",
+   "hasAccent": false,
+   "hasDeva": true
+  },
+  "ap90": {
+   "group": "Sanskrit-English",
+   "hasAccent": false,
+   "hasDeva": true
+  },
+  "armh": {
+   "group": "Sanskrit-Sanskrit",
+   "hasAccent": false,
+   "hasDeva": true
+  },
+  "ben": {
+   "group": "Sanskrit-English",
+   "hasAccent": false,
+   "hasDeva": true
+  },
+  "bhs": {
+   "group": "Specialized",
+   "hasAccent": false,
+   "hasDeva": false
+  },
+  "bop": {
+   "group": "Sanskrit-Latin",
+   "hasAccent": false,
+   "hasDeva": true
+  },
+  "bor": {
+   "group": "English-Sanskrit",
+   "hasAccent": false,
+   "hasDeva": false,
+   "englishHeadwords": true
+  },
+  "bur": {
+   "group": "Sanskrit-French",
+   "hasAccent": false,
+   "hasDeva": true
+  },
+  "cae": {
+   "group": "Sanskrit-English",
+   "hasAccent": true,
+   "hasDeva": true
+  },
+  "ccs": {
+   "group": "Sanskrit-German",
+   "hasAccent": true,
+   "hasDeva": true
+  },
+  "fri": {
+   "group": "Specialized",
+   "hasAccent": false,
+   "hasDeva": false
+  },
+  "gra": {
+   "group": "Sanskrit-German",
+   "hasAccent": false,
+   "hasDeva": false
+  },
+  "gst": {
+   "group": "Sanskrit-English",
+   "hasAccent": false,
+   "hasDeva": true
+  },
+  "ieg": {
+   "group": "Specialized",
+   "hasAccent": false,
+   "hasDeva": false
+  },
+  "inm": {
+   "group": "Specialized",
+   "hasAccent": false,
+   "hasDeva": false
+  },
+  "krm": {
+   "group": "Specialized",
+   "hasAccent": false,
+   "hasDeva": true
+  },
+  "lan": {
+   "group": "Sanskrit-English",
+   "hasAccent": false,
+   "hasDeva": true
+  },
+  "lrv": {
+   "group": "Sanskrit-English",
+   "hasAccent": false,
+   "hasDeva": true
+  },
+  "mci": {
+   "group": "Specialized",
+   "hasAccent": false,
+   "hasDeva": false
+  },
+  "md": {
+   "group": "Sanskrit-English",
+   "hasAccent": false,
+   "hasDeva": false
+  },
+  "mw": {
+   "group": "Sanskrit-English",
+   "hasAccent": true,
+   "hasDeva": true
+  },
+  "mw72": {
+   "group": "Sanskrit-English",
+   "hasAccent": false,
+   "hasDeva": false
+  },
+  "mwe": {
+   "group": "English-Sanskrit",
+   "hasAccent": false,
+   "hasDeva": false,
+   "englishHeadwords": true
+  },
+  "nmmb": {
+   "group": "Sanskrit-Sanskrit",
+   "hasAccent": false,
+   "hasDeva": true,
+   "renderProfile": "abch"
+  },
+  "nybj": {
+   "group": "Sanskrit-Sanskrit",
+   "hasAccent": false,
+   "hasDeva": true
+  },
+  "pd": {
+   "group": "Sanskrit-English",
+   "hasAccent": false,
+   "hasDeva": false,
+   "status": "excluded"
+  },
+  "pe": {
+   "group": "Specialized",
+   "hasAccent": false,
+   "hasDeva": false
+  },
+  "pgn": {
+   "group": "Specialized",
+   "hasAccent": false,
+   "hasDeva": false
+  },
+  "pui": {
+   "group": "Specialized",
+   "hasAccent": false,
+   "hasDeva": false
+  },
+  "pw": {
+   "group": "Sanskrit-German",
+   "hasAccent": true,
+   "hasDeva": true,
+   "status": "deprecated"
+  },
+  "pwg": {
+   "group": "Sanskrit-German",
+   "hasAccent": true,
+   "hasDeva": true,
+   "status": "deprecated"
+  },
+  "pwkvn": {
+   "group": "Sanskrit-German",
+   "hasAccent": true,
+   "hasDeva": true
+  },
+  "sch": {
+   "group": "Sanskrit-German",
+   "hasAccent": false,
+   "hasDeva": false
+  },
+  "shs": {
+   "group": "Sanskrit-English",
+   "hasAccent": false,
+   "hasDeva": true
+  },
+  "skd": {
+   "group": "Sanskrit-Sanskrit",
+   "hasAccent": false,
+   "hasDeva": true
+  },
+  "snp": {
+   "group": "Specialized",
+   "hasAccent": false,
+   "hasDeva": false
+  },
+  "stc": {
+   "group": "Sanskrit-French",
+   "hasAccent": false,
+   "hasDeva": false
+  },
+  "vcp": {
+   "group": "Sanskrit-Sanskrit",
+   "hasAccent": false,
+   "hasDeva": true
+  },
+  "vei": {
+   "group": "Specialized",
+   "hasAccent": false,
+   "hasDeva": false
+  },
+  "wil": {
+   "group": "Sanskrit-English",
+   "hasAccent": false,
+   "hasDeva": true,
+   "status": "deprecated"
+  },
+  "yat": {
+   "group": "Sanskrit-English",
+   "hasAccent": false,
+   "hasDeva": true
+  }
+ }
+}
